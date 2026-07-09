@@ -14,8 +14,6 @@ Example usage::
     btn = ui.link("Click me!", href="https://ckan.org")
 """
 
-from __future__ import annotations
-
 import dataclasses
 import datetime
 import logging
@@ -50,7 +48,7 @@ NAMESPACE_UI = uuid.uuid5(uuid.NAMESPACE_OID, "ui")
 
 class Util(BaseUtil):
     _storage_key: str = "ui_storage"
-    _theme: Theme
+    _theme: 'Theme'
     _extra_class_attr: str = "_extra_class"
     _attr_groups: list[tuple[str, str]] = [
         ("aria", "aria-"),
@@ -64,7 +62,7 @@ class Util(BaseUtil):
         return value.replace("&", "&amp;").replace('"', "&quot;")
 
     @override
-    def __init__(self, theme: Theme):
+    def __init__(self, theme: 'Theme'):
         self._theme = theme
 
     @override
@@ -327,7 +325,7 @@ class MacroUI(UI):
     _inv: dict[str, PElement]
 
     @override
-    def __init__(self, app: types.CKANApp, theme: Theme, util: Util):
+    def __init__(self, app: types.CKANApp, theme: 'Theme', util: Util):
         self.util = util
 
         self._inv = {}

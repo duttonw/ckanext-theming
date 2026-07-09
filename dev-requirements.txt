@@ -1,1 +1,5 @@
 pytest-ckan
+pytest-pretty
+zensical
+pre-commit
+pytest-playwright

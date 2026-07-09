@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import logging
 from typing import Any, cast
 
@@ -18,22 +16,6 @@ from .interfaces import ITheme
 from .themes import make_bare_theme, make_classic_polyfill, make_mb_polyfill
 
 log = logging.getLogger(__name__)
-
-
-def _is_main_implementation(self: ThemingMixin, config: types.CKANConfig):
-    """Check if the current plugin instance is the main implementation of ThemingMixin.
-
-    The main implementations is either the theming plugin itself it it's
-    loaded, or the last loaded plugin that extends ThemingMixin.
-    """
-    if p.plugin_loaded("theming"):
-        return self.name == "theming"
-
-    for name in reversed(config["ckan.plugins"]):
-        plugin = p.get_plugin(name)
-        if not isinstance(plugin, ThemingMixin):
-            continue
-        return plugin == self
 
 
 class ThemingMixin(ITheme, p.IConfigurer, p.IMiddleware):
@@ -72,6 +54,22 @@ class ThemingMixin(ITheme, p.IConfigurer, p.IMiddleware):
         else:
             log.warning("Cannot initialize UI in the non-flask application")
         return app
+
+
+def _is_main_implementation(self: ThemingMixin, config: types.CKANConfig):
+    """Check if the current plugin instance is the main implementation of ThemingMixin.
+
+    The main implementations is either the theming plugin itself it it's
+    loaded, or the last loaded plugin that extends ThemingMixin.
+    """
+    if p.plugin_loaded("theming"):
+        return self.name == "theming"
+
+    for name in reversed(config["ckan.plugins"]):
+        plugin = p.get_plugin(name)
+        if not isinstance(plugin, ThemingMixin):
+            continue
+        return plugin == self
 
 
 @tk.blanket.cli

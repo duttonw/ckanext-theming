@@ -1,7 +1,5 @@
 """Reference definitions for components used in the system."""
 
-from __future__ import annotations
-
 import copy
 import dataclasses
 import enum
@@ -48,16 +46,16 @@ class Category(enum.Enum):
 
 
 @dataclasses.dataclass(frozen=True)
+class MacroArgument:
+    description: str = ""
+    type: str = "any"
+
+
+@dataclasses.dataclass(frozen=True)
 class Component:
     category: Category = Category.CUSTOM
     description: str = ""
     arguments: dict[str, MacroArgument] = dataclasses.field(default_factory=dict)
-
-
-@dataclasses.dataclass(frozen=True)
-class MacroArgument:
-    description: str = ""
-    type: str = "any"
 
 
 @dataclasses.dataclass(frozen=True)

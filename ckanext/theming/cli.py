@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import contextlib
 import fnmatch
 import inspect
@@ -866,10 +864,10 @@ def endpoint_benchmark(  # noqa: PLR0913
         data = _benchmark_endpoint(endpoint, params, app, user=user, timeout=timeout)
         click.echo(f"Total number of iterations: {data['iterations']}")
         click.echo("Average time:")
-        for name, time in data["measurements"].items():
+        for name, time_data in data["measurements"].items():
             if name == endpoint:
                 name += "(without template rendering)"  # noqa: PLW2901
-            click.echo(f"\t{name}: {time * 100:.3f}ms")
+            click.echo(f"\t{name}: {time_data * 100:.3f}ms")
 
 
 def _dump_encoder(value: Any):

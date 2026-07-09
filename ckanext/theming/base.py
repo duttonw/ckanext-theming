@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import abc
 import datetime
 from collections.abc import Iterable
@@ -19,7 +17,7 @@ class PElement(Protocol):
 
 class BaseUtil(abc.ABC):
     @abc.abstractmethod
-    def __init__(self, theme: BaseTheme): ...
+    def __init__(self, theme: 'BaseTheme'): ...
 
     @abc.abstractmethod
     def augment_attrs(self, kwargs: dict[str, Any], defaults: dict[str, Any] | None = None, /) -> dict[str, Any]: ...
@@ -67,7 +65,7 @@ class UI(Iterable[str], abc.ABC):
     util: BaseUtil
 
     @abc.abstractmethod
-    def __init__(self, app: types.CKANApp, theme: BaseTheme, util: BaseUtil): ...
+    def __init__(self, app: types.CKANApp, theme: 'BaseTheme', util: BaseUtil): ...
 
     @abc.abstractmethod
     def _add_component(self, name: str, component: PElement): ...

@@ -1,16 +1,13 @@
-from __future__ import annotations
-
 import fnmatch
 from typing import Any, cast
 
 import pytest
+from ckanext.theming import reference
 from playwright.sync_api import Page
-from werkzeug.routing.rules import Rule
 
 import ckan.plugins.toolkit as tk
 from ckan.types import FixtureApp, FixtureCkanConfig, TestFactory
-
-from ckanext.theming import reference
+from werkzeug.routing import Rule
 
 
 @pytest.fixture
@@ -59,7 +56,7 @@ class TestPages:
         app: FixtureApp,
         source_data: reference.Source,
     ):
-        url_map = cast("dict[str, list[Rule]]", app.flask_app.url_map._rules_by_endpoint)
+        url_map = cast(dict[str, list[Rule]], app.flask_app.url_map._rules_by_endpoint)
         for name, rules in url_map.items():
             if any(fnmatch.fnmatch(name, pattern) for pattern in source_data.ignore):
                 continue
